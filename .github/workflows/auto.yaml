@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "0 1 * * *"
   workflow_dispatch:
+  push:
+    branches: ["main"]
 
 jobs:
   build:
@@ -40,5 +42,5 @@ jobs:
           git config --global user.name "Punaa"
           git config --global user.email "syaapuna@gmail.com"
           git add .
-          git commit -m "${{ steps.msg.outputs.msg }}"
+          git commit -m "${{ steps.msg.outputs.msg }}" || echo "No changes"
           git push
