@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../controller/counter_controller.dart';
-import '../widgets/counter_button.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -65,7 +64,7 @@ class _CounterPageState extends State<CounterPage> {
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black,
                 blurRadius: 15,
               ),
             ],
