@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controller/counter_controller.dart';
+import 'history_page.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -15,6 +16,7 @@ class _CounterPageState extends State<CounterPage> {
   void update() {
     setState(() {});
   }
+  
 
   String getMessage() {
     if (controller.count == 0) {
@@ -84,6 +86,8 @@ class _CounterPageState extends State<CounterPage> {
 
               const SizedBox(height: 10),
 
+              
+
               /// ANIMATED COUNTER
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
@@ -131,6 +135,7 @@ class _CounterPageState extends State<CounterPage> {
                     update();
                   }),
                 ],
+                
               )
             ],
           ),
@@ -138,6 +143,7 @@ class _CounterPageState extends State<CounterPage> {
       ),
     );
   }
+  
 
   Widget _animatedButton(IconData icon, VoidCallback onTap) {
     return GestureDetector(
