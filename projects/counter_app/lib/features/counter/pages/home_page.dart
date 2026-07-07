@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../counter/pages/counter_page.dart';
+import '../controller/counter_controller.dart';
+import 'counter_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final CounterController? controller;
+  const HomePage({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const CounterPage(),
+                    builder: (_) => CounterPage(controller: controller ?? CounterController()),
                   ),
                 );
               },

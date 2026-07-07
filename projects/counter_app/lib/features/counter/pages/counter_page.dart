@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../controller/counter_controller.dart';
-import 'history_page.dart';
+import '../widgets/counter_button.dart';
 
 class CounterPage extends StatefulWidget {
-  const CounterPage({super.key});
+  final CounterController controller;
+  const CounterPage({super.key, required this.controller});
 
   @override
   State<CounterPage> createState() => _CounterPageState();
 }
 
 class _CounterPageState extends State<CounterPage> {
-  final controller = CounterController();
   bool isDark = false;
 
   void update() {
@@ -19,13 +19,13 @@ class _CounterPageState extends State<CounterPage> {
   
 
   String getMessage() {
-    if (controller.count == 0) {
+    if (widget.controller.count == 0) {
       return "Kasi Mulai ngitung";
-    } else if (controller.count < 0) {
+    } else if (widget.controller.count < 0) {
       return "Kocak kok bisa mines";
-    } else if (controller.count < 5) {
+    } else if (widget.controller.count < 5) {
       return "Masih dikit";
-    } else if (controller.count < 10) {
+    } else if (widget.controller.count < 10) {
       return "Whooop Bisa itu";
     } else {
       return "Omakkk Dah gacor yaa";
@@ -66,8 +66,9 @@ class _CounterPageState extends State<CounterPage> {
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.black,
+                color: Colors.black.withOpacity(0.2),
                 blurRadius: 15,
+                offset: const Offset(0, 5),
               ),
             ],
           ),
@@ -77,7 +78,7 @@ class _CounterPageState extends State<CounterPage> {
               
               /// TITLE
               const Text(
-                "✨ Counter App",
+                "Counter App",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -98,8 +99,8 @@ class _CounterPageState extends State<CounterPage> {
                   );
                 },
                 child: Text(
-                  "${controller.count}",
-                  key: ValueKey(controller.count),
+                  "${widget.controller.count}",
+                  key: ValueKey(widget.controller.count),
                   style: TextStyle(
                     fontSize: 60,
                     fontWeight: FontWeight.bold,
@@ -125,37 +126,27 @@ class _CounterPageState extends State<CounterPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _animatedButton(Icons.remove, () {
-                    controller.decrement();
-                    update();
-                  }),
+                  CounterButton(
+                    icon: Icons.remove,
+                    onTap: () {
+                      widget.controller.decrement();
+                      update();
+                    },
+                  ),
                   const SizedBox(width: 20),
-                  _animatedButton(Icons.add, () {
-                    controller.increment();
-                    update();
-                  }),
+                  CounterButton(
+                    icon: Icons.add,
+                    onTap: () {
+                      widget.controller.increment();
+                      update();
+                    },
+                  ),
                 ],
                 
               )
             ],
           ),
         ),
-      ),
-    );
-  }
-  
-
-  Widget _animatedButton(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: Colors.deepPurple,
-          borderRadius: BorderRadius.circular(18),
-        ),
-        child: Icon(icon, color: Colors.white),
       ),
     );
   }

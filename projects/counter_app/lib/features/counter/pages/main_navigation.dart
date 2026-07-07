@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../counter/pages/home_page.dart';
-import '../../counter/pages/counter_page.dart';
+import '../controller/counter_controller.dart';
+import 'home_page.dart';
+import 'counter_page.dart';
+import 'history_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -11,11 +13,7 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   int currentIndex = 0;
-
-  final List<Widget> pages = const [
-    HomePage(),
-    CounterPage(),
-  ];
+  final CounterController _controller = CounterController();
 
   void onTabTapped(int index) {
     setState(() {
@@ -25,6 +23,12 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      HomePage(controller: _controller),
+      CounterPage(controller: _controller),
+      HistoryPage(history: _controller.history),
+    ];
+
     return Scaffold(
       body: pages[currentIndex],
 
